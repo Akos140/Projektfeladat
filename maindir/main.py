@@ -2,11 +2,11 @@ import tkinter.ttk as ttk
 from tkinter import *
 import szamitas
 
-re = False
+#re = False
 class atlag:
     def __init__(self):
-        global re
-        re = False
+        #global re
+        #re = False
         self.ablak = Tk()
         self.ablak.minsize(100, 100)
         self.ablak.title('Ösztöndíj index')
@@ -46,15 +46,15 @@ class atlag:
         self.eredmeny = ttk.Entry(self.ablak, width=10, name='eredmeny', state=DISABLED, foreground="red")
         self.eredmeny.grid(row=2, column=4)
 
-        self.reset = ttk.Button(self.ablak, text='Reset', command=self.resetting)
-        self.reset.grid(row=3, column=3)
+        '''self.reset = ttk.Button(self.ablak, text='Reset', command=self.resetting)
+        self.reset.grid(row=3, column=3)'''
 
         mainloop()
 
-    def resetting(self):
+    '''def resetting(self):
         global re
         re = True
-        self.ablak.destroy()
+        self.ablak.destroy()'''
 
     def hozzaad(self):
 
@@ -93,8 +93,8 @@ class atlag:
         self.gomb['state'] = DISABLED
         self.szamol['state'] = DISABLED
 atlag()
-while re:
-    atlag()
+'''while re:
+    atlag()'''
 
 
 
