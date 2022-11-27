@@ -2,87 +2,89 @@ import tkinter.ttk as ttk
 from tkinter import *
 import szamitas
 
-ablak = Tk()
-ablak.minsize(640, 480)
-ablak.title('Ösztöndíj index')
-i = 2
-lsz = 3
-n = 2
+class atlag:
+    def __init__(self):
+        self.ablak = Tk()
+        self.ablak.minsize(640, 480)
+        self.ablak.title('Ösztöndíj index')
+        self.i = 2
+        self.lsz = 3
+        self.n = 2
+        self.labkredit = ttk.Label(self.ablak, text='Kredit')
+        self.labkredit.grid(row=0, column=1)
 
-def hozzaad():
-    global i
-    global lsz
-    k = str(i)
-    j = str(i+100)
-    l = str(i+1000)
-    l = ttk.Label(ablak, text=str(lsz)+'.'+' tárgy')
-    l.grid(row=1+i, column=0)
-    k = ttk.Entry(ablak, width=1, name=k)
-    k.grid(row=1+i, column=1)
-    j = ttk.Entry(ablak, width=1, name=j)
-    j.grid(row=1 + i, column=2)
-    lsz = lsz+1
-    i = i+1
+        self.labjegy = ttk.Label(self.ablak, text='Jegy')
+        self.labjegy.grid(row=0, column=2)
 
-def getval():
-    global i
-    global n
-    ink = []
-    inj = []
-    for o in range(2, i):
-        #l = 0
-        h = str(o)
-        g = str(o+100)
-        ink.append(int(ablak.nametowidget(h).get()))
-        inj.append(int(ablak.nametowidget(g).get()))
-        #l=l+1
-    ink.append(int(kreditm.get()))
-    ink.append(int(kreditm2.get()))
+        self.kreditm = ttk.Entry(self.ablak, width=1, name='defk1')
+        self.kreditm.grid(row=1, column=1)
 
-    inj.append(int(jegym.get()))
-    inj.append(int(jegym2.get()))
+        self.labtargy1 = ttk.Label(self.ablak, text='1. tárgy: ')
+        self.labtargy1.grid(row=1, column=0)
+
+        self.kreditm2 = ttk.Entry(self.ablak, width=1, name='defk2')
+        self.kreditm2.grid(row=2, column=1)
+
+        self.labtargy2 = ttk.Label(self.ablak, text='2. tárgy: ')
+        self.labtargy2.grid(row=2, column=0)
+
+        self.jegym = ttk.Entry(self.ablak, width=1, name='defj1')
+        self.jegym.grid(row=1, column=2)
+
+        self.jegym2 = ttk.Entry(self.ablak, width=1, name='defj2')
+        self.jegym2.grid(row=2, column=2)
+
+        self.gomb = ttk.Button(self.ablak, text='+', command=self.hozzaad)
+        self.gomb.grid(row=1, column=3)
+
+        self.szamol = ttk.Button(self.ablak, text='Számolás', command=self.getval)
+        self.szamol.grid(row=2, column=3)
+
+        self.eredmeny = ttk.Entry(self.ablak, width=10, name='eredmeny', state=DISABLED, foreground="red")
+        self.eredmeny.grid(row=2, column=4)
+
+        mainloop()
+
+    def hozzaad(self):
+
+        k = str(self.i)
+        j = str(self.i+100)
+        l = str(self.i+1000)
+        l = ttk.Label(self.ablak, text=str(self.lsz)+'.'+' tárgy')
+        l.grid(row=1+self.i, column=0)
+        k = ttk.Entry(self.ablak, width=1, name=k)
+        k.grid(row=1+self.i, column=1)
+        j = ttk.Entry(self.ablak, width=1, name=j)
+        j.grid(row=1 + self.i, column=2)
+        self.lsz = self.lsz+1
+        self.i = self.i+1
+
+    def getval(self):
+
+        self.ink = []
+        self.inj = []
+        for o in range(2, self.i):
+            #l = 0
+            h = str(o)
+            g = str(o+100)
+            self.ink.append(int(self.ablak.nametowidget(h).get()))
+            self.inj.append(int(self.ablak.nametowidget(g).get()))
+            #l=l+1
+        self.ink.append(int(self.kreditm.get()))
+        self.ink.append(int(self.kreditm2.get()))
+
+        self.inj.append(int(self.jegym.get()))
+        self.inj.append(int(self.jegym2.get()))
+
+        self.eredmeny['state'] = NORMAL
+        self.eredmeny.insert(END, szamitas.szamolas(self.ink, self.inj))
+        self.eredmeny['state'] = DISABLED
+        self.gomb['state'] = DISABLED
+        self.szamol['state'] = DISABLED
+
+atlag()
 
 
-    eredmeny['state'] = NORMAL
-    eredmeny.insert(END, szamitas.szamolas(ink, inj))
-    eredmeny['state'] = DISABLED
-    gomb['state'] = DISABLED
-    szamol['state'] = DISABLED
 
 
 
-
-labkredit = ttk.Label(ablak, text='Kredit')
-labkredit.grid(row=0, column=1)
-
-labjegy = ttk.Label(ablak, text='Jegy')
-labjegy.grid(row=0, column=2)
-
-kreditm = ttk.Entry(ablak, width=1, name='defk1')
-kreditm.grid(row=1, column=1)
-
-labtargy1 = ttk.Label(ablak, text='1. tárgy: ')
-labtargy1.grid(row=1, column=0)
-
-kreditm2 = ttk.Entry(ablak, width=1, name='defk2')
-kreditm2.grid(row=2, column=1)
-
-labtargy2 = ttk.Label(ablak, text='2. tárgy: ')
-labtargy2.grid(row=2, column=0)
-
-jegym = ttk.Entry(ablak, width=1, name='defj1')
-jegym.grid(row=1, column=2)
-
-jegym2 = ttk.Entry(ablak, width=1, name='defj2')
-jegym2.grid(row=2, column=2)
-
-gomb = ttk.Button(ablak, text='+', command=hozzaad)
-gomb.grid(row=1, column=3)
-
-szamol = ttk.Button(ablak, text='Számolás', command=getval)
-szamol.grid(row=2, column=3)
-
-eredmeny = ttk.Entry(ablak, width=10, name='eredmeny', state=DISABLED, foreground="red")
-eredmeny.grid(row=2, column=4)
-
-mainloop()
