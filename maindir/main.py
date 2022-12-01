@@ -11,6 +11,7 @@ class atlag:
         self.ablak = Tk()
         self.ablak.minsize(100, 100)
         self.ablak.title('Ösztöndíj index')
+        self.ablak.resizable(False, False)
 
         def validate(P):
             if len(P) == 0:
