@@ -7,9 +7,20 @@ class atlag:
     def __init__(self):
         global re
         re = False
+
         self.ablak = Tk()
         self.ablak.minsize(100, 100)
         self.ablak.title('Ösztöndíj index')
+
+        def validate(P):
+            if len(P) == 0:
+                return True
+            elif len(P) == 1 and P.isdigit():
+                return True
+            else:
+                return False
+
+        self.vcmd = (self.ablak.register(validate), '%P')
         self.i = 2
         self.lsz = 3
         self.n = 2
@@ -19,22 +30,22 @@ class atlag:
         self.labjegy = ttk.Label(self.ablak, text='Jegy')
         self.labjegy.grid(row=0, column=2)
 
-        self.kreditm = ttk.Entry(self.ablak, width=1, name='defk1')
+        self.kreditm = ttk.Entry(self.ablak, width=1, name='defk1', validate="key", validatecommand=self.vcmd)
         self.kreditm.grid(row=1, column=1)
 
         self.labtargy1 = ttk.Label(self.ablak, text='1. tárgy: ')
         self.labtargy1.grid(row=1, column=0)
 
-        self.kreditm2 = ttk.Entry(self.ablak, width=1, name='defk2')
+        self.kreditm2 = ttk.Entry(self.ablak, width=1, name='defk2', validate="key", validatecommand=self.vcmd)
         self.kreditm2.grid(row=2, column=1)
 
         self.labtargy2 = ttk.Label(self.ablak, text='2. tárgy: ')
         self.labtargy2.grid(row=2, column=0)
 
-        self.jegym = ttk.Entry(self.ablak, width=1, name='defj1')
+        self.jegym = ttk.Entry(self.ablak, width=1, name='defj1', validate="key", validatecommand=self.vcmd)
         self.jegym.grid(row=1, column=2)
 
-        self.jegym2 = ttk.Entry(self.ablak, width=1, name='defj2')
+        self.jegym2 = ttk.Entry(self.ablak, width=1, name='defj2', validate="key", validatecommand=self.vcmd)
         self.jegym2.grid(row=2, column=2)
 
         self.gomb = ttk.Button(self.ablak, text='+', command=self.hozzaad)
@@ -48,6 +59,8 @@ class atlag:
 
         self.reset = ttk.Button(self.ablak, text='Reset', command=self.resetting)
         self.reset.grid(row=3, column=3)
+
+
 
         mainloop()
 
@@ -64,9 +77,9 @@ class atlag:
         l = str(self.i+1000)
         l = ttk.Label(self.ablak, text=str(self.lsz)+'.'+' tárgy: ')
         l.grid(row=1+self.i, column=0)
-        k = ttk.Entry(self.ablak, width=1, name=k)
+        k = ttk.Entry(self.ablak, width=1, name=k, validate="key", validatecommand=self.vcmd)
         k.grid(row=1+self.i, column=1)
-        j = ttk.Entry(self.ablak, width=1, name=j)
+        j = ttk.Entry(self.ablak, width=1, name=j, validate="key", validatecommand=self.vcmd)
         j.grid(row=1 + self.i, column=2)
         self.lsz = self.lsz+1
         self.i = self.i+1
